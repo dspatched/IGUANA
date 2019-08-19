@@ -21,18 +21,18 @@ public class ConfigSender {
 	 * @throws ConfigurationException
 	 */
 	public static void main(String[] args) throws ConfigurationException {
-		if(args.length!=2) {
+/*		if(args.length!=2) {
 			System.out.println("Usage: java -cp \"target/lib/*\" "+ConfigSender.class.getName()+" rabbitmq-host config-file\n");
 			System.out.println("\trabbitmq-host: the host the rabbitmq server runs on (e.g. localhost)");
 			System.out.println("\tconfig-file: the Iguana Config (see org.apache.commons.configuration.Configuration for more details)");
 		}
-		else {
+		else {*/
 			ISender sender = new DefaultSender();
-			sender.init(args[0], COMMON.CONFIG2MC_QUEUE_NAME);
-			sender.send(RabbitMQUtils.getData(ConfigurationUtils.convertConfiguration(args[1])));
+			sender.init("localhost", COMMON.CONFIG2MC_QUEUE_NAME);
+			String props = new ConfigSender().getClass().getClassLoader().getResource("benchconfig.properties").getFile();
+			sender.send(RabbitMQUtils.getData(ConfigurationUtils.convertConfiguration(props)));
 			System.out.println("Finished");
 			sender.close();
-		}
 	}
 
 }
