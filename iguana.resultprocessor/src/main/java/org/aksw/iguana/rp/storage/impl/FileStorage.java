@@ -119,7 +119,9 @@ public class FileStorage implements Storage {
 			Triple triple = data[index];
 			String key =  triple.getPredicate();
 			int j=header.indexOf(key)-1;
-			ordered[j] = triple.getObject().toString();
+			if (j > 0) {
+				ordered[j] = triple.getObject().toString();
+			}
 		}
 		
 		for(index=0;index<ordered.length-1;index++){
