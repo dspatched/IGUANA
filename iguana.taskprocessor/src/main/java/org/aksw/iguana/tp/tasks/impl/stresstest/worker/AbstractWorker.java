@@ -208,6 +208,7 @@ public abstract class AbstractWorker implements Worker {
 			} catch (Exception e) {
 				LOGGER.error("Worker[{{}} : {{}}] : ERROR with query: {{}}", this.workerType, this.workerID,
 						query.toString());
+				e.printStackTrace();
 				time = -1L;
 			}
 			System.out.println("Query: "+queryID+" : "+time);
