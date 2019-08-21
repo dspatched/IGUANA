@@ -92,12 +92,17 @@ public class SPARQLWorker extends AbstractWorker {
 
 			try {
 				HttpGet request = new HttpGet(url);
-				RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(timeOut.intValue())
-						.setConnectTimeout(timeOut.intValue()).build();
-
+				RequestConfig requestConfig = RequestConfig.custom()
+						.setSocketTimeout(30 * 1000)
+						.setConnectionRequestTimeout(30 * 1000)
+						.setConnectTimeout(30 * 1000)
+						.build();
 				request.setConfig(requestConfig);
 
+				System.out.println(request.getURI());
+				System.out.println(request.getConfig().getConnectionRequestTimeout() + "  " + request.getConfig().getConnectTimeout() + "  " + request.getConfig().getSocketTimeout());
 				response = client.execute(request);
+				System.out.println("Request done");
 				HttpEntity entity = response.getEntity();
 				int responseCode = response.getStatusLine().getStatusCode();
 				System.out.println("\nSending 'GET' request to URL : " + service);
