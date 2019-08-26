@@ -92,11 +92,8 @@ public class SPARQLWorker extends AbstractWorker {
 
 			try {
 				HttpGet request = new HttpGet(url);
-				RequestConfig requestConfig = RequestConfig.custom()
-						.setSocketTimeout(30 * 1000)
-						.setConnectionRequestTimeout(30 * 1000)
-						.setConnectTimeout(30 * 1000)
-						.build();
+				RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(timeOut.intValue())
+						.setConnectTimeout(timeOut.intValue()).build();
 				request.setConfig(requestConfig);
 
 				System.out.println(request.getURI());

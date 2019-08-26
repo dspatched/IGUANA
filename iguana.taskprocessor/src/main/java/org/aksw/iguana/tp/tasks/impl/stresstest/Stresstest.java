@@ -211,7 +211,7 @@ public class Stresstest extends AbstractTask {
 			LOGGER.info("[TaskID: {{}}] Will shutdown and await termination in 5s.", taskID);
 			executor.shutdown();
 			executor.awaitTermination(5, TimeUnit.SECONDS);
-			LOGGER.info("[TaskID: {{}}] Task completed.");
+			LOGGER.info("[TaskID: {{}}] Task completed.", taskID);
 		} catch (InterruptedException e) {
 			LOGGER.error("[TaskID: {{}}] Could not shutdown Threads/Workers due to ...", taskID);
 			LOGGER.error("... Exception: ", e);
