@@ -146,7 +146,7 @@ public class COMMON {
 
 	public static final String SIMPLE_TRIPLE_KEY = "cleanTripleText";
 
-	public static final Object RECEIVE_DATA_SIZE = "resultSize";
+	public static final String RECEIVE_DATA_SIZE = "resultSize";
 
 	public static final Long UNKNOWN_EXCEPTION_VALUE = 0L;
 
