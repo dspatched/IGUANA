@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
 import org.aksw.iguana.commons.constants.COMMON;
 import org.aksw.iguana.rp.data.Triple;
 import org.aksw.iguana.rp.metrics.AbstractMetric;
@@ -56,12 +55,14 @@ public class EachQueryMetric extends AbstractMetric {
 		
 		LOGGER.debug(this.getShortName() + " has received " + p);
 
+
 		long time = (long) p.get(COMMON.RECEIVE_DATA_TIME);
 		Boolean success = (Boolean) (((long) p.get(COMMON.RECEIVE_DATA_SUCCESS))>0?true:false);
 		String queryID = p.getProperty(COMMON.QUERY_ID_KEY);
 		long err = (long) p.get(COMMON.RECEIVE_DATA_SUCCESS);
 		subject += "/"+queryID;
-
+		Properties extraMeta = (Properties) p.get("extraMeta");
+		String workerID = String.valueOf(extraMeta.get("workerID"));
 		long run=1;
 		if(queryRunMap.containsKey(subject)){
 			run = queryRunMap.get(subject)+1;
@@ -72,12 +73,13 @@ public class EachQueryMetric extends AbstractMetric {
 		results.put("EQE", subject2);
 
 		//as triples
-		Triple[] triples = new Triple[5];
-		triples[0] = new Triple(subject2, "time", time);
-		triples[1] = new Triple(subject2, "success", success);
-		triples[2] = new Triple(subject2, "queryID", queryID);
-		triples[3] = new Triple(subject2, "run", run);
-		triples[4] = new Triple(subject2, "errorCode", err);
+		Triple[] triples = new Triple[6];
+		triples[0] = new Triple(subject2, "WorkerID", workerID);
+		triples[1] = new Triple(subject2, "time", time);
+		triples[2] = new Triple(subject2, "success", success);
+		triples[3] = new Triple(subject2, "queryID", queryID);
+		triples[4] = new Triple(subject2, "run", run);
+		triples[5] = new Triple(subject2, "errorCode", err);
 
 		
 		Set<String> isRes = new HashSet<String>();

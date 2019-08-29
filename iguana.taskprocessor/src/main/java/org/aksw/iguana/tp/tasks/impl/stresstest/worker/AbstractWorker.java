@@ -1,5 +1,7 @@
 package org.aksw.iguana.tp.tasks.impl.stresstest.worker;
 
+import static org.aksw.iguana.tp.config.CONSTANTS.WORKER_ID_KEY;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
@@ -7,7 +9,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Random;
-
 import org.aksw.iguana.commons.constants.COMMON;
 import org.aksw.iguana.tp.config.CONSTANTS;
 import org.slf4j.Logger;
@@ -126,7 +127,7 @@ public abstract class AbstractWorker implements Worker {
 	public void init(Properties p) {
 		// Add task and Worker Specs
 		this.taskID = p.getProperty(COMMON.EXPERIMENT_TASK_ID_KEY);
-		this.workerID = Integer.parseInt(p.getProperty(CONSTANTS.WORKER_ID_KEY));
+		this.workerID = Integer.parseInt(p.getProperty(WORKER_ID_KEY));
 		this.workerType = p.getProperty(CONSTANTS.WORKER_TYPE_KEY);
 		if(p.containsKey(CONSTANTS.TIME_LIMIT))
 			this.timeLimit = Long.parseLong(p.getProperty(CONSTANTS.TIME_LIMIT));
@@ -167,9 +168,9 @@ public abstract class AbstractWorker implements Worker {
 	public void startWorker() {
 		// set extra meta key to send late
 		this.extra = new Properties();
-		this.extra.put(CONSTANTS.WORKER_ID_KEY, workerID);
+		this.extra.put(WORKER_ID_KEY, workerID);
 		this.extra.setProperty(CONSTANTS.WORKER_TYPE_KEY, workerType);
-		if(this.queryFileList!=null)
+		if (this.queryFileList != null)
 			this.extra.put(COMMON.NO_OF_QUERIES, this.queryFileList.length);
 		// For Update and Logging purpose get startTime of Worker
 		this.startTime = Calendar.getInstance().getTimeInMillis();
@@ -201,7 +202,7 @@ public abstract class AbstractWorker implements Worker {
 			Long time = 0L;
 			Long[] resultTime = new Long[]{0L, 0L};
 			try {
-				System.out.println(queryID+": D3");
+				System.out.println(queryID + ": D3");
 				resultTime = getTimeForQueryMs(query.toString(), queryID.toString());
 				time = resultTime[1];
 				System.out.println("D4");
